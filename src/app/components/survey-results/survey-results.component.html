@@ -1,0 +1,27 @@
+<div class="container mt-5">
+    <h2 class="mb-4">Survey Results: {{ surveyTitle }}</h2>
+
+    <!-- Loading Spinner -->
+    <div *ngIf="!userAnswers || userAnswers.length === 0" class="text-center text-muted">
+        <p>Loading
+            <span class="ms-2">
+                <i class="fas fa-circle-notch fa-spin" style="font-size:24px"></i>
+            </span>
+        </p>
+    </div>
+
+    <!-- Survey Questions and Answers -->
+    <div *ngIf="userAnswers && userAnswers.length > 0">
+        <ol>
+            <li *ngFor="let question of questions; let i = index" class="mb-4 pr-3 pl-3 pt-2 pb-1 border rounded">
+                <h6 class="fw-bold">Question {{ i + 1 }}: {{ question.questionText }}</h6>
+                <p *ngIf="question.selectedOption" class="text-success">
+                    <strong>Answer:</strong> {{ question.selectedOption }}
+                </p>
+                <p *ngIf="!question.selectedOption" class="text-warning">
+                    <strong>No answer provided</strong>
+                </p>
+            </li>
+        </ol>
+    </div>
+</div>

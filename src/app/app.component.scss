@@ -1,0 +1,15 @@
+
+
+.container-fluid {
+    overflow-x: hidden; /* Это предотвратит горизонтальный скроллинг */
+  }
+  
+  .flex-grow-1 {
+    max-width: 100%; /* Убедитесь, что контент не превышает ширину */
+  }
+  
+
+ 
+  .minWidthSlidebar {
+    min-width: 50rem;
+  }

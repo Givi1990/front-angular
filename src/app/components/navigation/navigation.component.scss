@@ -1,0 +1,36 @@
+.dropdownMenu {
+    position: absolute; 
+    min-width: 8rem;
+    min-height: 6rem;
+    background-color: #ffffff; 
+    border: 1px solid #ccc;
+    border-radius: 5px; 
+    z-index: 10; 
+    padding-left: 2rem;
+    margin-top: 0.2rem;
+    margin-right: 3.5rem;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    
+}
+
+
+.logoClass {
+    width: 12rem;
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+  }
+  
+  .shake-on-hover:hover {
+    animation: shake 0.5s; 
+  }
+  
+  

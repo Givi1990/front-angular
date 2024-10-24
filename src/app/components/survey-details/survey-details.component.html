@@ -1,0 +1,39 @@
+<div class="container mt-5">
+    <h2>{{ survey?.title }}</h2>
+    <p>{{ survey?.description }}</p>
+  
+    <form (ngSubmit)="submitAnswers()">
+      <div *ngFor="let question of questions" class="mb-4">
+        <label class="form-label">{{ question.questionText }}</label>
+        
+        <div *ngIf="question.questionType === 'singleLine'">
+          <input type="text" class="form-control" [(ngModel)]="question.selectedOption" name="question{{question.id}}" required />
+        </div>
+  
+        <div *ngIf="question.questionType === 'multiLine'">
+          <textarea class="form-control" [(ngModel)]="question.selectedOption" name="question{{question.id}}" required></textarea>
+        </div>
+  
+        <div *ngIf="question.questionType === 'positiveInteger'">
+          <input type="number" class="form-control" [(ngModel)]="question.selectedOption" name="question{{question.id}}" min="1" required />
+        </div>
+  
+        <div *ngIf="question.questionType === 'radio'">
+          <div *ngFor="let option of question.options">
+            <input type="radio" [value]="option.id" [(ngModel)]="question.selectedOption" name="question{{question.id}}" required />
+            <label>{{ option.option }}</label>
+          </div>
+        </div>
+  
+        <div *ngIf="question.questionType === 'checkbox'">
+          <div *ngFor="let option of question.options">
+            <input type="checkbox" [value]="option.id" (change)="onCheckboxChange(question, option.id)" />
+            <label>{{ option.option }}</label>
+          </div>
+        </div>
+      </div>
+  
+      <button type="submit" class="btn btn-primary">Отправить ответы</button>
+    </form>
+  </div>
+  

@@ -1,0 +1,46 @@
+.autocomplete-suggestions {
+    border: 1px solid #ccc;
+    max-height: 150px;
+    overflow-y: auto;
+    position: absolute;
+    z-index: 1000;
+    background-color: white;
+  }
+  
+  .suggestion-item {
+    padding: 8px;
+    cursor: pointer;
+  }
+  
+  .suggestion-item:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .tags {
+    margin-top: 10px;
+  }
+  
+  .container {
+    width: auto;
+    margin-left: 10%;
+}
+
+.btn {
+    margin-right: 1%;
+}
+
+.checkboxOptions {
+  margin-bottom: 1rem;
+}
+
+.text-muted {
+  margin-left: 1rem;
+}
+
+.custom-file {
+  margin-top: 1rem;
+}
+
+.custom-file-input {
+  margin-left: 1rem;
+}
