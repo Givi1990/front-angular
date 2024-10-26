@@ -36,7 +36,9 @@ export class UserLoginComponent implements OnInit {
             this.authService.saveToken(response.token);
           }
           
-          this.router.navigate(['/']);
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+            this.router.navigate([this.router.url]);
+          });
           
           
           
