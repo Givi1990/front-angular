@@ -36,7 +36,7 @@ export class UserLoginComponent implements OnInit {
             this.authService.saveToken(response.token);
           }
           
-          this.router.navigate(['/']); 
+          this.router.navigate(['/dashboard']); 
         },
         (error: ErrorResponse) => {
           console.error('Ошибка входа:', error.message);
