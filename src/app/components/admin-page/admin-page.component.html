@@ -1,62 +1,63 @@
 <div class="container pl-4">
-    <h1 class="mt-4">Администраторская панель</h1>
-    <button class="btn btn-primary mb-3" (click)="navigateToUserPage()">Пользовательская панель</button>
-  
-    <h2>Список пользователей</h2>
-    <div class="table-responsive">
-      <table class="table table-bordered table-striped">
-        <thead class="thead-dark">
-          <tr>
-            <th>ID</th>
-            <th>Имя пользователя</th>
-            <th>Email</th>
-            <th>Роль</th>
-            <th>Заблокирован</th>
-            <th>Дата регистрации</th>
-            <th>Действия</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let user of users">
-            <td>{{ user.id }}</td>
-            <td>{{ user.username }}</td>
-            <td>{{ user.email }}</td>
-            <td>{{ user.isAdmin ? 'Администратор' : 'Пользователь' }}</td>
-            <td>{{ user.isBlocked ? 'Да' : 'Нет' }}</td>
-            <td>{{ user.registrationDate | date:'short' }}</td>
-            <td>
-              <button class="btn btn-warning btn-sm" (click)="toggleBlock(user)">
-                {{ user.isBlocked ? 'Разблокировать' : 'Заблокировать' }}
-              </button>
-              <button class="btn btn-danger btn-sm" (click)="deleteUser(user.id)">Удалить</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  
-    <h2 class="mt-4">Список опросов</h2>
-    <div class="table-responsive">
-      <table class="table table-bordered table-striped">
-        <thead class="thead-dark">
-          <tr>
-            <th>ID</th>
-            <th>Название опроса</th>
-            <th>Дата создания</th>
-            <th>Действия</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let survey of surveys">
-            <td>{{ survey.id }}</td>
-            <td>{{ survey.title }}</td>
-            <td>{{ survey.createdAt | date:'short' }}</td>
-            <td>
-              <button class="btn btn-danger btn-sm" (click)="deleteSurvey(survey.id)">Удалить</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <h1 class="mt-4">Admin Panel</h1>
+  <button class="btn btn-primary mb-3" (click)="navigateToUserPage()">User Panel</button>
+
+  <h2>User List</h2>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th>ID</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Blocked</th>
+          <th>Registration Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.id }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.isAdmin ? 'Admin' : 'User' }}</td>
+          <td>{{ user.isBlocked ? 'Yes' : 'No' }}</td>
+          <td>{{ user.registrationDate | date:'short' }}</td>
+          <td>
+            <button class="btn btn-warning btn-sm" (click)="toggleBlock(user)">
+              {{ user.isBlocked ? 'Unblock' : 'Block' }}
+            </button>
+            <button class="btn btn-danger btn-sm ml-2" (click)="deleteUser(user.id)">
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-  
+
+  <h2 class="mt-4">Survey List</h2>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th>ID</th>
+          <th>Survey Title</th>
+          <th>Description</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let survey of surveys">
+          <td>{{ survey.id }}</td>
+          <td>{{ survey.title }}</td>
+          <td>{{ survey.description }}</td>
+          <td>
+            <button class="btn btn-danger btn-sm" (click)="deleteSurvey(survey.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

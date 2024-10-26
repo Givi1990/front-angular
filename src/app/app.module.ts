@@ -20,10 +20,11 @@ import { EditSurveyModule } from './components/edit-survey/edit-survey.module';
 import { SurveyResultsModule } from './components/survey-results/survey-results.component.module';
 import { AdminPageModule } from './components/admin-page/admin-page.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateService } from './dictioanary/translate.pipe';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,7 +49,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
     
   ],
-  providers: [],
+  providers: [TranslateService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

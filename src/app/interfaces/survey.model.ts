@@ -49,3 +49,71 @@ export interface LoginResponse {
 export interface ErrorResponse {
     message: string;           // Сообщение об ошибке
 }
+
+
+export interface Dictionary {
+    components: {
+        survey: {
+            title: string;
+            description: string;
+            actions: {
+                edit: {
+                    button_text: string;
+                    action: string;
+                };
+                delete: {
+                    button_text: string;
+                    action: string;
+                };
+            };
+            loading_template: {
+                text: string;
+                spinner: string;
+            };
+            completed_surveys: {
+                see_results: {
+                    button_text: string;
+                    action: string;
+                };
+            };
+        };
+        registration: {
+            title: string;
+            form: {
+                username: {
+                    label: string;
+                    validation: string;
+                };
+                email: {
+                    label: string;
+                    validation: string;
+                };
+                password: {
+                    label: string;
+                    validation: string;
+                };
+                submit_button: {
+                    text: string;
+                    disabled_condition: string;
+                };
+            };
+        };
+        login: {
+            title: string;
+            form: {
+                username: {
+                    label: string;
+                    validation: string;
+                };
+                password: {
+                    label: string;
+                    validation: string;
+                };
+                submit_button: {
+                    text: string;
+                    disabled_condition: string;
+                };
+            };
+        };
+    };
+}

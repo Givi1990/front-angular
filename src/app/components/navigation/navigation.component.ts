@@ -12,13 +12,14 @@ export class NavigationComponent implements OnInit {
   isLoggedIn: boolean = false;
   userId!: number | null;
   isSidebarVisible: boolean = false;
+  currentLanguage: 'en' | 'ru' = 'en';
 
-  @Output() sidebarToggle = new EventEmitter<boolean>(); // Изменено на boolean
+  @Output() sidebarToggle = new EventEmitter<boolean>();
 
   constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.checkLoginStatus();
+    this.checkLoginStatus(); // Убедитесь, что этот метод вызывается правильно
   }
 
   toggleUserDropdownMenu() {
@@ -26,13 +27,13 @@ export class NavigationComponent implements OnInit {
   }
 
   toggleSidebar() {
-    this.isSidebarVisible = !this.isSidebarVisible; // Переключаем состояние
-    this.sidebarToggle.emit(this.isSidebarVisible); // Отправляем текущее состояние
-    console.log(this.isSidebarVisible); // Выводим состояние в консоль
+    this.isSidebarVisible = !this.isSidebarVisible;
+    this.sidebarToggle.emit(this.isSidebarVisible);
+    console.log(this.isSidebarVisible);
   }
 
   checkLoginStatus(): void {
-    this.isLoggedIn = this.authService.isLoggedIn();
+    this.isLoggedIn = this.authService.isLoggedIn(); // Убедитесь, что эта строка корректна
     if (this.isLoggedIn) {
       this.userId = Number(this.authService.getUserInfo("id"));
     }
@@ -66,5 +67,11 @@ export class NavigationComponent implements OnInit {
     this.isLoggedIn = false;
     this.router.navigate(['/']);
     this.userDropdownMenu = false;
+  }
+
+  toggleLanguage() {
+    this.currentLanguage = this.currentLanguage === 'en' ? 'ru' : 'en'; // Переключаем язык
+    // Здесь можно добавить логику для изменения языка в приложении
+    console.log('Текущий язык:', this.currentLanguage);
   }
 }
