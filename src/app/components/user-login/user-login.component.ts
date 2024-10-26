@@ -36,7 +36,7 @@ export class UserLoginComponent implements OnInit {
             this.authService.saveToken(response.token);
           }
           
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/']);
           
           
           
