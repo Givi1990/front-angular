@@ -50,7 +50,7 @@ const routes: Routes = [
     path: 'search', 
     loadChildren: () => import('./components/search/search.module').then(m => m.SearchModule) 
   },
-  { path: '**', redirectTo: '/dashboard' }
+  { path: '**', redirectTo: '/' }
 ];
 
 @NgModule({
