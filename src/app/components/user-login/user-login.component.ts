@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { ErrorResponse, LoginResponse } from '../../interfaces/survey.model';
-import { Router } from '@angular/router'; // Импортируем Router
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -15,7 +15,7 @@ export class UserLoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router // Внедряем Router
+    private router: Router
   ) {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
@@ -36,13 +36,7 @@ export class UserLoginComponent implements OnInit {
             this.authService.saveToken(response.token);
           }
           
-          this.router.navigate(['']);
-          
-          
-          
-          setTimeout(() => {
-            window.location.reload();
-          }, 1000);  
+          this.router.navigate(['/']); 
         },
         (error: ErrorResponse) => {
           console.error('Ошибка входа:', error.message);
@@ -50,5 +44,4 @@ export class UserLoginComponent implements OnInit {
       );
     }
   }
-  
 }
