@@ -6,7 +6,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
   { 
     path: 'dashboard', 
-    loadChildren: () => import('./components/dashboard/dashboard.module').then(m => m.DashboardModule) 
+    loadChildren: () => import('./components/dashboard/dashboard.module').then(m => m.DashboardModule),
   },
   { 
     path: 'survey-builder', 

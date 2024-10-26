@@ -34,7 +34,7 @@ export class UserLoginComponent implements OnInit {
           console.log('Успешный вход:', response);
           if (response.token) {
             this.authService.saveToken(response.token);
-            this.router.navigate(['/']);
+            this.router.navigate(['']);
           }
           
           
