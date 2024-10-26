@@ -42,7 +42,7 @@ export class UserLoginComponent implements OnInit {
           
           setTimeout(() => {
             this.router.navigate(['/dashboard']);
-          }, 100);  
+          }, 1000);  
         },
         (error: ErrorResponse) => {
           console.error('Ошибка входа:', error.message);
