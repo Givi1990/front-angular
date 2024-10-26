@@ -35,9 +35,14 @@ export class UserLoginComponent implements OnInit {
           if (response.token) {
             this.authService.saveToken(response.token);
           }
+          
+          
+          
+          
+          
           setTimeout(() => {
             this.router.navigate(['']);
-          }, 100);  
+          }, 1000);  
         },
         (error: ErrorResponse) => {
           console.error('Ошибка входа:', error.message);
