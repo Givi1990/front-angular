@@ -6,7 +6,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
   { 
     path: 'dashboard', 
-    loadChildren: () => import('./components/dashboard/dashboard.module').then(m => m.DashboardModule),
+    loadChildren: () => import('./components/dashboard/dashboard.module').then(m => m.DashboardModule) 
   },
   { 
     path: 'survey-builder', 
@@ -50,7 +50,7 @@ const routes: Routes = [
     path: 'search', 
     loadChildren: () => import('./components/search/search.module').then(m => m.SearchModule) 
   },
-  { path: '**', redirectTo: '/' }
+  { path: '**', redirectTo: '/dashboard' }
 ];
 
 @NgModule({
