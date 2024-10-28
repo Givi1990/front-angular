@@ -41,7 +41,7 @@
             <h3>{{ getTranslation('questions') }}</h3>
             <div *ngFor="let question of template.questions; let i = index" class="question mb-4">
                 <div class="form-group">
-                    <label for="question-{{i}}">{{ getTranslation('questionNumber', [i + 1]) }}</label>
+                    <label for="question-{{i}}">{{ getTranslation('questionNumber') }} {{ i + 1 }}</label>
                     <input type="text" id="question-{{i}}" [(ngModel)]="question.questionText" name="questionText{{i}}" class="form-control" required>
                 </div>
 
@@ -58,13 +58,13 @@
 
                 <div *ngIf="question.questionType === 'radio'">
                     <div class="form-group" *ngIf="question.options && question.options.length > 0">
-                        <label for="option1-{{i}}">{{ getTranslation('option', [1]) }}</label>
-                        <input *ngIf="question.options[0]" type="text" id="option1-{{i}}" [(ngModel)]="question.options[0].option" placeholder="{{ getTranslation('option', [1]) }}" class="form-control" name="option1{{i}}" required>
+                        <label for="option1-{{i}}">{{ getTranslation('option') }} {{ 1 }}</label>
+                        <input *ngIf="question.options[0]" type="text" id="option1-{{i}}" [(ngModel)]="question.options[0].option" placeholder="{{ getTranslation('option')}} {{[1]}}" class="form-control" name="option1{{i}}" required>
                     </div>
 
                     <div class="form-group" *ngIf="question.options && question.options.length > 1">
-                        <label for="option2-{{i}}">{{ getTranslation('option', [2]) }}</label>
-                        <input *ngIf="question.options[1]" type="text" id="option2-{{i}}" [(ngModel)]="question.options[1].option" placeholder="{{ getTranslation('option', [2]) }}" class="form-control" name="option2{{i}}" required>
+                        <label for="option2-{{i}}">{{ getTranslation('option') }} {{ 2 }}</label>
+                        <input *ngIf="question.options[1]" type="text" id="option2-{{i}}" [(ngModel)]="question.options[1].option" placeholder="{{ getTranslation('option')}} {{[2]}}" class="form-control" name="option2{{i}}" required>
                     </div>
 
                     <div class="form-group">
@@ -75,8 +75,8 @@
 
                 <div *ngIf="question.questionType === 'checkbox'">
                     <div *ngFor="let option of question.options; let j = index" class="form-group">
-                        <label for="checkboxOption-{{i}}-{{j}}">{{ getTranslation('option', [j + 1]) }}</label>
-                        <input type="text" id="checkboxOption-{{i}}-{{j}}" [(ngModel)]="option.option" placeholder="{{ getTranslation('option', [j + 1]) }}" class="form-control" name="checkboxOption{{i}}{{j}}" required>
+                        <label for="checkboxOption-{{i}}-{{j}}">{{ getTranslation('option') }} {{ j + 1 }}</label>
+                        <input type="text" id="checkboxOption-{{i}}-{{j}}" [(ngModel)]="option.option" placeholder="{{ getTranslation('option')}} {{[j + 1]}}" class="form-control" name="checkboxOption{{i}}{{j}}" required>
                         <button type="button" (click)="removeOption(i, j)" class="btn btn-danger mt-1">{{ getTranslation('delete') }}</button>
                     </div>
                     <button type="button" (click)="addOption(i)" class="btn btn-secondary mt-2">{{ getTranslation('addQuestion') }}</button>
