@@ -3,6 +3,7 @@ import { SurveyService } from '../../services/survey.service';
 import { ActivatedRoute } from '@angular/router';
 import { Survey, Question, Response, Option } from '../../interfaces/survey.model';
 import { AuthService } from '../../services/auth.service';
+import { TranslateService } from '../../dictioanary/translate.pipe';
 
 @Component({
   selector: 'app-survey-details',
@@ -17,7 +18,8 @@ export class SurveyDetailsComponent implements OnInit {
   constructor(
     private surveyService: SurveyService,
     private route: ActivatedRoute,
-    private authService: AuthService
+    private authService: AuthService,
+    public translateService: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -151,7 +153,13 @@ collectResponses(userId: number): void {
 }
 
 
+getTranslation(key: string): string {
+  return this.translateService.getTranslation(key);
+}
 
+switchLanguage(lang: 'en' | 'ru') {
+  this.translateService.setLanguage(lang);
+}
 
   
 }

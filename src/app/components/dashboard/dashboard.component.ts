@@ -3,6 +3,7 @@ import { SurveyService } from '../../services/survey.service';
 import { Question, Survey } from '../../interfaces/survey.model';
 import { Router } from '@angular/router'; // Импортируйте Router для навигации
 import { AuthService } from '../../services/auth.service';
+import { TranslateService } from '../../dictioanary/translate.pipe';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,7 +18,9 @@ export class DashboardComponent implements OnInit {
   constructor(
     private surveyService: SurveyService, 
     private router: Router,
-    private authService: AuthService ) { // Внедрите Router
+    private authService: AuthService,
+    public translateService: TranslateService
+   ) { // Внедрите Router
   }
 
   ngOnInit(): void {
@@ -32,5 +35,13 @@ export class DashboardComponent implements OnInit {
 
   selectQuestionnaire(surveyId: number): void {
     this.router.navigate(['/survey-details', surveyId]); // Используйте surveyId
+  }
+
+  getTranslation(key: string): string {
+    return this.translateService.getTranslation(key);
+  }
+
+  switchLanguage(lang: 'en' | 'ru') {
+    this.translateService.setLanguage(lang);
   }
 }

@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SurveyService } from '../../services/survey.service'; // Импортируйте свой сервис
 import { AuthService } from '../../services/auth.service'; // Импортируйте AuthService
 import { Survey } from '../../interfaces/survey.model';
+import { TranslateService } from '../../dictioanary/translate.pipe';
 
 @Component({
   selector: 'app-edit-survey',
@@ -21,7 +22,8 @@ export class EditSurveyComponent implements OnInit {
     private surveyService: SurveyService,
     private authService: AuthService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    public translateService: TranslateService
   ) { }
 
   ngOnInit() {
@@ -162,5 +164,13 @@ export class EditSurveyComponent implements OnInit {
         console.error('Ошибка при обновлении опроса:', error);
       }
     );
+  }
+
+  getTranslation(key: string): string {
+    return this.translateService.getTranslation(key);
+  }
+
+  switchLanguage(lang: 'en' | 'ru') {
+    this.translateService.setLanguage(lang);
   }
 }

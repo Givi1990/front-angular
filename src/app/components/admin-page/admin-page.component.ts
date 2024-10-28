@@ -3,6 +3,7 @@ import { AuthService } from '../../services/auth.service';
 import { SurveyService } from '../../services/survey.service';
 import { User } from '../../interfaces/survey.model';
 import { Router } from '@angular/router';
+import { TranslateService } from '../../dictioanary/translate.pipe';
 
 @Component({
   selector: 'app-admin-page',
@@ -16,7 +17,8 @@ export class AdminPageComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private surveyService: SurveyService,
-    private router: Router
+    private router: Router,
+    public translateService: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -106,4 +108,14 @@ deleteUser(userId: number): void {
       );
     }
   }
+
+  getTranslation(key: string): string {
+    return this.translateService.getTranslation(key);
+  }
+
+  switchLanguage(lang: 'en' | 'ru') {
+    this.translateService.setLanguage(lang);
+  }
+
+  
 }

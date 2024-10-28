@@ -1,19 +1,19 @@
 <div class="container pl-4">
-  <h1 class="mt-4">Admin Panel</h1>
-  <button class="btn btn-primary mb-3" (click)="navigateToUserPage()">User Panel</button>
+  <h1 class="mt-4">{{ getTranslation('adminPanel') }}</h1>
+  <button class="btn btn-primary mb-3" (click)="navigateToUserPage()">{{ getTranslation('userPanel') }}</button>
 
-  <h2>User List</h2>
+  <h2>{{ getTranslation('userList') }}</h2>
   <div class="table-responsive">
     <table class="table table-bordered table-striped">
       <thead class="thead-dark">
         <tr>
           <th>ID</th>
-          <th>Username</th>
-          <th>Email</th>
-          <th>Role</th>
-          <th>Blocked</th>
-          <th>Registration Date</th>
-          <th>Actions</th>
+          <th>{{ getTranslation('username') }}</th>
+          <th>{{ getTranslation('email') }}</th>
+          <th>{{ getTranslation('role') }}</th>
+          <th>{{ getTranslation('blocked') }}</th>
+          <th>{{ getTranslation('registrationDate') }}</th>
+          <th>{{ getTranslation('actions') }}</th>
         </tr>
       </thead>
       <tbody>
@@ -21,15 +21,15 @@
           <td>{{ user.id }}</td>
           <td>{{ user.username }}</td>
           <td>{{ user.email }}</td>
-          <td>{{ user.isAdmin ? 'Admin' : 'User' }}</td>
-          <td>{{ user.isBlocked ? 'Yes' : 'No' }}</td>
+          <td>{{ user.isAdmin ? getTranslation('admin') : getTranslation('user') }}</td>
+          <td>{{ user.isBlocked ? getTranslation('yes') : getTranslation('no') }}</td>
           <td>{{ user.registrationDate | date:'short' }}</td>
           <td>
             <button class="btn btn-warning btn-sm" (click)="toggleBlock(user)">
-              {{ user.isBlocked ? 'Unblock' : 'Block' }}
+              {{ user.isBlocked ? getTranslation('unblock') : getTranslation('block') }}
             </button>
             <button class="btn btn-danger btn-sm ml-2" (click)="deleteUser(user.id)">
-              Delete
+              {{ getTranslation('delete') }}
             </button>
           </td>
         </tr>
@@ -37,15 +37,15 @@
     </table>
   </div>
 
-  <h2 class="mt-4">Survey List</h2>
+  <h2 class="mt-4">{{ getTranslation('surveyList') }}</h2>
   <div class="table-responsive">
     <table class="table table-bordered table-striped">
       <thead class="thead-dark">
         <tr>
           <th>ID</th>
-          <th>Survey Title</th>
-          <th>Description</th>
-          <th>Actions</th>
+          <th>{{ getTranslation('surveyTitle') }}</th>
+          <th>{{ getTranslation('description') }}</th>
+          <th>{{ getTranslation('actions') }}</th>
         </tr>
       </thead>
       <tbody>
@@ -54,7 +54,7 @@
           <td>{{ survey.title }}</td>
           <td>{{ survey.description }}</td>
           <td>
-            <button class="btn btn-danger btn-sm" (click)="deleteSurvey(survey.id)">Delete</button>
+            <button class="btn btn-danger btn-sm" (click)="deleteSurvey(survey.id)">{{ getTranslation('delete') }}</button>
           </td>
         </tr>
       </tbody>

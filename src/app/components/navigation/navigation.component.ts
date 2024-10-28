@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { TranslateService } from '../../dictioanary/translate.pipe';
 
 @Component({
   selector: 'app-navigation',
@@ -16,7 +17,11 @@ export class NavigationComponent implements OnInit {
 
   @Output() sidebarToggle = new EventEmitter<boolean>();
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(
+    private router: Router, 
+    private authService: AuthService, 
+    private translateService: TranslateService
+  ) {}
 
   ngOnInit(): void {
     this.checkLoginStatus(); // Убедитесь, что этот метод вызывается правильно
@@ -70,8 +75,7 @@ export class NavigationComponent implements OnInit {
   }
 
   toggleLanguage() {
-    this.currentLanguage = this.currentLanguage === 'en' ? 'ru' : 'en'; // Переключаем язык
-    // Здесь можно добавить логику для изменения языка в приложении
-    console.log('Текущий язык:', this.currentLanguage);
+    this.currentLanguage = this.currentLanguage === 'en' ? 'ru' : 'en';
+    this.translateService.setLanguage(this.currentLanguage);
   }
 }

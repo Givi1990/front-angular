@@ -3,6 +3,7 @@ import { UsersService } from '../../services/users.servise';
 import { User } from '../../interfaces/survey.model';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TranslateService } from '../../dictioanary/translate.pipe';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +16,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private fb: FormBuilder, 
     private usersService: UsersService,
-    private router: Router
+    private router: Router,
+    public translateService: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -52,6 +54,14 @@ export class RegisterComponent implements OnInit {
     } else {
       console.error('Форма регистрации не валидна:', this.registerForm.errors);
     }
+  }
+
+  getTranslation(key: string): string {
+    return this.translateService.getTranslation(key);
+  }
+
+  switchLanguage(lang: 'en' | 'ru') {
+    this.translateService.setLanguage(lang);
   }
   
 }

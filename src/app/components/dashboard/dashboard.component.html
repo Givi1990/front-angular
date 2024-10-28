@@ -16,7 +16,7 @@
             class="btn btn-primary" 
             (click)="survey.id ? selectQuestionnaire(survey.id) : null"
             [disabled]="!survey.id"> <!-- Disable button if id is not available -->
-            Select a Questionnaire
+            {{ getTranslation('selectQuestionnaire') }}
           </button>
           <div *ngIf="questions.length > 0" class="mt-3">
             <h4>Questions:</h4>

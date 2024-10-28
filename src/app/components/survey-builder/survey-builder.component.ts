@@ -3,6 +3,7 @@ import { Question, Survey } from '../../interfaces/survey.model'; // Прове�
 import { SurveyService } from '../../services/survey.service'; // Импортируйте свой сервис
 import { AuthService } from '../../services/auth.service'; // Импортируйте AuthService
 import { Router } from '@angular/router';
+import { TranslateService } from '../../dictioanary/translate.pipe';
 
 @Component({
   selector: 'app-survey-builder',
@@ -26,7 +27,8 @@ export class SurveyBuilderComponent {
   constructor(
     private surveyService: SurveyService, 
     private authService: AuthService, 
-    private router: Router
+    private router: Router,
+    public translateService: TranslateService
   ) { } 
 
   onImageSelected(event: any) {
@@ -148,4 +150,15 @@ export class SurveyBuilderComponent {
       }
     );
   }
+
+
+  getTranslation(key: string): string {
+    return this.translateService.getTranslation(key);
+  }
+
+  switchLanguage(lang: 'en' | 'ru') {
+    this.translateService.setLanguage(lang);
+  }
+
+  
 }

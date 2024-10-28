@@ -1,11 +1,11 @@
-<div class="d-flex flex-column flex-shrink-0 pt-4 ps-5 pe-3 pb-3" style="min-width: 300px;" >
-  <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none ">
-    <span class="fs-4  pt-2 pb-2 pl-4 pr-4 shadow " style="border-radius: 4px;">See all templates</span>
+<div class="d-flex flex-column flex-shrink-0 pt-4 ps-5 pe-3 pb-3" style="min-width: 300px; max-width: 300px;">
+  <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+    <span class="fs-3 pt-2 pb-2 pl-3 pr-3 shadow" style="border-radius: 4px;">{{ getTranslation('seeAllTemplates') }}</span>
   </a>
   <hr>
   <ul class="nav nav-pills flex-column mb-auto">
-    <li>
-      <button class="btn btn-primary" (click)="surveyBuilderNav()">Create New Tamplate</button>
+    <li class="nav-item">
+      <button class="btn btn-primary" (click)="surveyBuilderNav()">{{ getTranslation('createNewTemplate') }}</button>
     </li>
   </ul>
 </div>

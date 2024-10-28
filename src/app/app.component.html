@@ -3,8 +3,7 @@
     <app-navigation (sidebarToggle)="onSidebarToggle($event)"></app-navigation>
   </div>
 
-  <div class="row flex-grow-1" style="margin-top: 100px;">
-    <!-- Слайд бар -->
+  <div class="row flex-grow-1" style="margin-top: 100px; ">
     <div 
       *ngIf="!isSidebarHidden || isSidebarVisible" 
       class="col-3 p-0 vh-100" 
@@ -18,7 +17,6 @@
       <app-slide-bar (sidebarToggle)="onSidebarToggle($event)"></app-slide-bar>
     </div>
 
-    <!-- Контент -->
     <div class="p-0 d-flex flex-column col-9" style="flex-grow: 1; position: relative;">
       <div>
         <app-search></app-search>

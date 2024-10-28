@@ -1,11 +1,12 @@
 <div class="container mt-4 pl-4">
   <div class="row d-flex justify-content-between flex-wrap">
+    
     <div class="col-md-6 col-sm-12 mb-3">
-      <h2 class="mb-3">Created Surveys</h2>
+      <h2 class="mb-3">{{ getTranslation('createdSurveys') }}</h2>
       <div *ngIf="createdSurveys && createdSurveys.length > 0; else noCreatedSurveys">
         <ul class="list-group">
           <li *ngFor="let survey of createdSurveys" class="list-group-item shadow hover">
-            <div class="card w-100 ">
+            <div class="card w-100">
               <div class="card-body shadow">
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="me-auto">
@@ -13,8 +14,8 @@
                     <p class="card-text mb-0">{{ survey.description }}</p>
                   </div>
                   <div>
-                    <button class="btn btn-primary me-2" (click)="editSurvey(survey.id)">Edit</button>
-                    <button class="btn btn-danger" (click)="deleteSurvey(survey.id)">Delete</button>
+                    <button class="btn btn-primary me-2" (click)="editSurvey(survey.id)">{{ getTranslation('edit') }}</button>
+                    <button class="btn btn-danger" (click)="deleteSurvey(survey.id)">{{ getTranslation('delete') }}</button>
                   </div>
                 </div>
               </div>
@@ -25,7 +26,7 @@
     </div>
 
     <ng-template #noCreatedSurveys>
-      <p class="text-muted">Loading
+      <p class="text-muted">{{ getTranslation('noCreatedSurveys') }} 
         <span>
           <i class="fas fa-circle-notch fa-spin" style="font-size:24px"></i>
         </span>
@@ -33,7 +34,7 @@
     </ng-template>
 
     <div class="col-md-6 col-sm-12 mb-3">
-      <h2 class="mb-3">Completed Surveys</h2>
+      <h2 class="mb-3">{{ getTranslation('completedSurveys') }}</h2>
       <div *ngIf="completedSurveys && completedSurveys.length > 0; else noCompletedSurveys">
         <ul class="list-group">
           <li *ngFor="let survey of completedSurveys" class="list-group-item shadow hover">
@@ -45,7 +46,7 @@
                     <p class="card-text mb-0">{{ survey.description }}</p>
                   </div>
                   <div>
-                    <button class="btn btn-primary me-2" (click)="viewResults(survey.id)">See results</button>
+                    <button class="btn btn-primary me-2" (click)="viewResults(survey.id)">{{ getTranslation('seeResults') }}</button>
                   </div>
                 </div>
               </div>
@@ -56,7 +57,7 @@
     </div>
 
     <ng-template #noCompletedSurveys>
-      <p class="text-muted">Loading
+      <p class="text-muted">{{ getTranslation('noCompletedSurveys') }} 
         <span>
           <i class="fas fa-circle-notch fa-spin" style="font-size:24px"></i>
         </span>

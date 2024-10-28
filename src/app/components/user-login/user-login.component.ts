@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { ErrorResponse, LoginResponse } from '../../interfaces/survey.model';
-import { Router } from '@angular/router'; // Импортируем Router
+import { Router } from '@angular/router'; 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TranslateService } from '../../dictioanary/translate.pipe';
 
 @Component({
   selector: 'app-user-login',
@@ -15,7 +16,8 @@ export class UserLoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router // Внедряем Router
+    private router: Router,
+    public translateService: TranslateService
   ) {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
@@ -49,6 +51,14 @@ export class UserLoginComponent implements OnInit {
         }
       );
     }
+  }
+
+  getTranslation(key: string): string {
+    return this.translateService.getTranslation(key);
+  }
+
+  switchLanguage(lang: 'en' | 'ru') {
+    this.translateService.setLanguage(lang);
   }
   
 }

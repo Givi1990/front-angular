@@ -1,31 +1,30 @@
 // src/app/translate.service.ts
 import { Injectable } from '@angular/core';
-import { dictionary } from './dictionary'; // Путь к вашему словарю
+import { BehaviorSubject } from 'rxjs';
+import { dictionary } from './dictionary';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TranslateService {
-  private currentLang: 'en' | 'ru' = 'en'; // Начальный язык
+  private currentLang: 'en' | 'ru' = 'en';
+  private langSubject = new BehaviorSubject<'en' | 'ru'>(this.currentLang);
+  lang$ = this.langSubject.asObservable();
 
   constructor() {}
 
   setLanguage(lang: 'en' | 'ru') {
     this.currentLang = lang;
+    this.langSubject.next(this.currentLang);
   }
 
   getTranslation(key: string): string {
     const keys = key.split('.');
     let result: any = dictionary.components[this.currentLang];
-
     for (const k of keys) {
-      if (result && result[k]) {
-        result = result[k];
-      } else {
-        return key; // вернуть ключ, если он не найден
-      }
+      result = result?.[k] ?? key;
     }
-    return result || key; // если ничего не найдено, вернуть ключ
+    return result;
   }
 
   getCurrentLanguage() {

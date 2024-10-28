@@ -3,6 +3,7 @@ import { SurveyService } from '../../services/survey.service';
 import { ActivatedRoute } from '@angular/router';
 import { Survey, Question, Response } from '../../interfaces/survey.model';
 import { AuthService } from '../../services/auth.service';
+import { TranslateService } from '../../dictioanary/translate.pipe';
 
 @Component({
   selector: 'app-survey-results',
@@ -19,7 +20,8 @@ export class SurveyResultsComponent implements OnInit {
   constructor(
     private surveyService: SurveyService,
     private route: ActivatedRoute,
-    private authService: AuthService
+    private authService: AuthService,
+    public translateService: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -77,5 +79,15 @@ export class SurveyResultsComponent implements OnInit {
         question.selectedOption = response.answerText; // Или как вы хотите хранить ответ
       }
     });
+  }
+
+
+
+  getTranslation(key: string): string {
+    return this.translateService.getTranslation(key);
+  }
+
+  switchLanguage(lang: 'en' | 'ru') {
+    this.translateService.setLanguage(lang);
   }
 }

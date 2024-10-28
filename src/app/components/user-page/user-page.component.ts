@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SurveyService } from '../../services/survey.service';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router'; // Import Router
+import { TranslateService } from '../../dictioanary/translate.pipe';
 
 @Component({
   selector: 'app-user-page',
@@ -12,7 +13,12 @@ export class UserPageComponent implements OnInit {
   createdSurveys: any[] = []; // Массив для созданных опросов
   completedSurveys: any[] = []; // Добавлено: массив для пройденных опросов
   userId: number | null = null; // Для хранения userId
-  constructor(private surveyService: SurveyService, private authService: AuthService, private router: Router) {} // Inject Router
+  constructor(
+    private surveyService: SurveyService, 
+    private authService: AuthService, 
+    private router: Router,
+    public translateService: TranslateService
+  ) {} // Inject Router
 
   ngOnInit() {
     this.userId = Number(this.authService.getUserInfo("id")); // Получение userId
@@ -92,5 +98,14 @@ export class UserPageComponent implements OnInit {
   viewResults(surveyId: number) {
     console.log('Viewing results for survey ID:', surveyId);
     this.router.navigate(['/survey-results', surveyId]); // Перенаправляем пользователя на страницу с результатами опроса
+  }
+
+
+  getTranslation(key: string): string {
+    return this.translateService.getTranslation(key);
+  }
+
+  switchLanguage(lang: 'en' | 'ru') {
+    this.translateService.setLanguage(lang);
   }
 }
