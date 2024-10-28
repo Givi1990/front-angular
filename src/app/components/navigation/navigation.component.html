@@ -5,12 +5,12 @@
   </button>
 
   <div class="ml-auto">
-    <button class="btn" type="button" id="authDropdown" (click)="toggleUserDropdownMenu()">
+    <button class="btn mb-2" type="button" id="authDropdown" (click)="toggleUserDropdownMenu()">
       <i class="fa-regular fa-user shake-on-hover"></i>
     </button>
 
     <button class="btn btn-light ml-2" (click)="toggleLanguage()">
-      {{ currentLanguage === 'en' ? 'English' : 'Русский' }}
+      {{ currentLanguage === 'en' ? 'Eng' : 'Рус' }}
     </button>
 
     <div *ngIf="userDropdownMenu">
