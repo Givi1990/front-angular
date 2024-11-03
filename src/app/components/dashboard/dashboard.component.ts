@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SurveyService } from '../../services/survey.service';
 import { Question, Survey } from '../../interfaces/survey.model';
-import { Router } from '@angular/router'; // Импортируйте Router для навигации
+import { Router } from '@angular/router'; 
 import { AuthService } from '../../services/auth.service';
 import { TranslateService } from '../../dictioanary/translate.pipe';
 
@@ -20,11 +20,10 @@ export class DashboardComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     public translateService: TranslateService
-   ) { // Внедрите Router
-  }
+   ) { }
 
   ngOnInit(): void {
-    this.loadSurveys(); // Загрузка опросов при инициализации
+    this.loadSurveys();
   }
 
   loadSurveys(): void {
@@ -34,7 +33,7 @@ export class DashboardComponent implements OnInit {
   }
 
   selectQuestionnaire(surveyId: number): void {
-    this.router.navigate(['/survey-details', surveyId]); // Используйте surveyId
+    this.router.navigate(['/survey-details', surveyId]); 
   }
 
   getTranslation(key: string): string {

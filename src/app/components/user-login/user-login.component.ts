@@ -26,22 +26,18 @@ export class UserLoginComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+  
 
   onSubmit() {
     if (this.loginForm.valid) {
       const { username, password } = this.loginForm.value;
-  
       this.authService.login(username, password).subscribe(
         (response: LoginResponse) => {
           console.log('Успешный вход:', response);
           if (response.token) {
             this.authService.saveToken(response.token);
           }
-          
           this.router.navigate(["/"]);
-          
-          
-          
           setTimeout(() => {
             window.location.reload();
           }, 100);  
@@ -53,12 +49,15 @@ export class UserLoginComponent implements OnInit {
     }
   }
 
+
   getTranslation(key: string): string {
     return this.translateService.getTranslation(key);
   }
 
+
   switchLanguage(lang: 'en' | 'ru') {
     this.translateService.setLanguage(lang);
   }
+
   
 }

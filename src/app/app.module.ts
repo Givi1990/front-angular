@@ -13,7 +13,6 @@ import { UserPageModule } from './components/user-page/user-page.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserRegistrModule } from './components/user-registr/user-registr.module';
 import { UserLoginModule } from './components/user-login/user-login.module';
-import { SearchModule } from './components/search/search.module';
 import { NavigationModule } from './components/navigation/navigation.module';
 import { FooterModule } from './components/footer/footer.module';
 import { EditSurveyModule } from './components/edit-survey/edit-survey.module';
@@ -21,10 +20,11 @@ import { SurveyResultsModule } from './components/survey-results/survey-results.
 import { AdminPageModule } from './components/admin-page/admin-page.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from './dictioanary/translate.pipe';
+import { UserProfileModule } from './components/user-profile/user-profile.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -39,12 +39,12 @@ import { TranslateService } from './dictioanary/translate.pipe';
     UserPageModule,
     UserRegistrModule,
     UserLoginModule,
-    SearchModule,
     FooterModule,
     EditSurveyModule,
     SurveyResultsModule,
     AdminPageModule,
-    NgbModule
+    NgbModule,
+    UserProfileModule
 
 
     

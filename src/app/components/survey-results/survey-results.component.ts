@@ -11,11 +11,11 @@ import { TranslateService } from '../../dictioanary/translate.pipe';
   styleUrls: ['./survey-results.component.scss']
 })
 export class SurveyResultsComponent implements OnInit {
-  survey: Survey | null = null; // Хранит информацию об опросе
-  questions: Question[] = []; // Хранит вопросы опроса
-  responses: Response[] = []; // Массив для хранения ответов
-  surveyTitle: string | null = null; // Заголовок опроса
-  userAnswers: Response[] = []; // Ответы пользователей
+  survey: Survey | null = null; 
+  questions: Question[] = []; 
+  responses: Response[] = []; 
+  surveyTitle: string | null = null; 
+  userAnswers: Response[] = []; 
 
   constructor(
     private surveyService: SurveyService,
@@ -25,16 +25,17 @@ export class SurveyResultsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const surveyId = Number(this.route.snapshot.paramMap.get('id')); // Получение ID из маршрута
+    const surveyId = Number(this.route.snapshot.paramMap.get('id')); 
     this.loadSurvey(surveyId);
   }
+
 
   loadSurvey(surveyId: number): void {
     this.surveyService.getSurveyById(surveyId).subscribe(
       survey => {
         this.survey = survey;
-        this.surveyTitle = survey.title; // Устанавливаем заголовок опроса
-        this.getSurveyQuestions(surveyId); // Загрузка вопросов после получения опроса
+        this.surveyTitle = survey.title;
+        this.getSurveyQuestions(surveyId); 
       },
       error => {
         console.error('Ошибка при загрузке опроса:', error);
@@ -42,11 +43,12 @@ export class SurveyResultsComponent implements OnInit {
     );
   }
 
+
   getSurveyQuestions(surveyId: number): void {
     this.surveyService.getSurveyQuestions(surveyId).subscribe(
       data => {
-        this.questions = data; // Сохраняем вопросы
-        this.loadUserResponses(); // Загружаем ответы после получения вопросов
+        this.questions = data; 
+        this.loadUserResponses(); 
       },
       error => {
         console.error('Ошибка при получении вопросов:', error);
@@ -54,15 +56,16 @@ export class SurveyResultsComponent implements OnInit {
     );
   }
 
+
   loadUserResponses(): void {
     const userId = Number(this.authService.getUserInfo("id"));
-    const surveyId = Number(this.route.snapshot.paramMap.get('id')); // Получаем surveyId из маршрута
+    const surveyId = Number(this.route.snapshot.paramMap.get('id')); 
 
     if (userId != null) {
       this.surveyService.getUserAnswersForSurveyByUser(surveyId, userId).subscribe(
         data => {
-          this.userAnswers = data; // Сохраняем ответы
-          this.mapResponsesToQuestions(); // Сопоставляем ответы с вопросами
+          this.userAnswers = data; 
+          this.mapResponsesToQuestions(); 
         },
         error => {
           console.error('Ошибка при загрузке ответов на опрос:', error);
@@ -71,12 +74,13 @@ export class SurveyResultsComponent implements OnInit {
     }
   }
 
+
   // Метод для сопоставления ответов с вопросами
   mapResponsesToQuestions(): void {
     this.questions.forEach(question => {
       const response = this.userAnswers.find(r => r.questionId === question.id);
       if (response) {
-        question.selectedOption = response.answerText; // Или как вы хотите хранить ответ
+        question.selectedOption = response.answerText; 
       }
     });
   }
@@ -87,7 +91,10 @@ export class SurveyResultsComponent implements OnInit {
     return this.translateService.getTranslation(key);
   }
 
+
   switchLanguage(lang: 'en' | 'ru') {
     this.translateService.setLanguage(lang);
   }
+
+  
 }

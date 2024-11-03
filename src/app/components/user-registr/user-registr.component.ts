@@ -37,7 +37,8 @@ export class RegisterComponent implements OnInit {
         password: this.registerForm.value.password,
         isAdmin: false, // Установите начальное значение
         isBlocked: false, // Установите начальное значение
-        registrationDate: new Date(), // Установите текущую дату
+        registrationDate: new Date(),
+        salesforce: false
       };
       
       console.log(user);

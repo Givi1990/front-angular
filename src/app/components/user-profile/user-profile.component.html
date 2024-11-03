@@ -1,0 +1,31 @@
+<div class="container">
+    <h2 *ngIf="!isSalesforceRegistered" class="text-center mb-4">Create Contact in Salesforce</h2>
+    
+    <form *ngIf="!isSalesforceRegistered" (ngSubmit)="createAccountAndContact()" #userForm="ngForm" class="container">
+      <div class="mb-3">
+        <label class="form-label">Account Name:</label>
+        <input type="text" name="accountName" [(ngModel)]="accountName" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">First Name:</label>
+        <input type="text" name="firstName" [(ngModel)]="firstName" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Last Name:</label>
+        <input type="text" name="lastName" [(ngModel)]="lastName" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Email:</label>
+        <input type="email" name="email" [(ngModel)]="email" class="form-control" required>
+      </div>
+      <button type="submit" class="btn btn-primary w-100" [disabled]="userForm.invalid">Create Account and Contact</button>
+    </form>
+    
+    <div *ngIf="isSalesforceRegistered" class="alert alert-info mt-3">
+      You are already registered in Salesforce.
+    </div>
+    
+    <div *ngIf="successMessage" class="alert alert-success mt-3">{{ successMessage }}</div>
+    <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
+  </div>
+  

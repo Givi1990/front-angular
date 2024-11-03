@@ -21,15 +21,13 @@ export class SlideBarComponent {
   ) {}
 
   surveyBuilderNav() {
-    if (this.authService.isLoggedIn()) { // Проверяем авторизацию
-      this.router.navigate(['/survey-builder']); // Перенаправляем на страницу survey-builder
+    if (this.authService.isLoggedIn()) { 
+      this.router.navigate(['/survey-builder']); 
     } else {
-      this.router.navigate(['/login']); // Если не авторизован, перенаправляем на login
+      this.router.navigate(['/login']); 
     }
     
-    // Закрываем боковую панель и отправляем событие
-    // this.isSidebarVisible = !this.isSidebarVisible;
-    // this.sidebarToggle.emit(this.isSidebarVisible);
+ 
   }
 
 

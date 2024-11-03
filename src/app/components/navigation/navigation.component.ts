@@ -24,7 +24,7 @@ export class NavigationComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.checkLoginStatus(); // Убедитесь, что этот метод вызывается правильно
+    this.checkLoginStatus(); 
   }
 
   toggleUserDropdownMenu() {
@@ -38,7 +38,7 @@ export class NavigationComponent implements OnInit {
   }
 
   checkLoginStatus(): void {
-    this.isLoggedIn = this.authService.isLoggedIn(); // Убедитесь, что эта строка корректна
+    this.isLoggedIn = this.authService.isLoggedIn(); 
     if (this.isLoggedIn) {
       this.userId = Number(this.authService.getUserInfo("id"));
     }
@@ -66,6 +66,13 @@ export class NavigationComponent implements OnInit {
     }
     this.userDropdownMenu = false;
   }
+
+  saleforce() {
+    const userId = this.authService.getUserInfo("id");
+    this.router.navigate(['/create-account-and-contact', userId]);
+    this.userDropdownMenu = false;
+  }
+  
 
   logout() {
     this.authService.logout();

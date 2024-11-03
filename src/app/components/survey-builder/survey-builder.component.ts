@@ -17,7 +17,7 @@ export class SurveyBuilderComponent {
     theme: '',
     tags: [],
     questions: [],
-    imageUrl: '' // Добавлено поле для URL изображения
+    imageUrl: '' 
   };
 
   themes: string[] = ['Образование', 'Викторина', 'Другое'];
@@ -41,16 +41,19 @@ export class SurveyBuilderComponent {
       reader.readAsDataURL(file);
     }
   }
+  
 
   onTagInput() {
     const input = this.tagInput.toLowerCase();
     this.suggestions = this.getTags().filter(tag => tag.toLowerCase().includes(input));
   }
 
+
   getTags(): string[] {
     // Логика для получения тегов из базы данных
     return ['Тег1', 'Тег2', 'Тег3']; // Пример статических тегов
   }
+
 
   selectTag(tag: string) {
     if (!this.template.tags.includes(tag)) {
@@ -58,6 +61,7 @@ export class SurveyBuilderComponent {
       this.clearTagInput();
     }
   }
+
 
   addTag() {
     const tag = this.tagInput.trim();
@@ -67,31 +71,36 @@ export class SurveyBuilderComponent {
     }
   }
 
+
   clearTagInput() {
     this.tagInput = '';
     this.suggestions = [];
   }
 
+
   removeTag(tag: string) {
     this.template.tags = this.template.tags.filter(t => t !== tag);
   }
 
+
   addQuestion() {
     if (this.template.questions.length < 16) {
-      const newQuestionId = Date.now(); // Уникальный ID на основе времени
+      const newQuestionId = Date.now(); 
       this.template.questions.push({
         questionText: '',
-        questionType: 'singleLine', // Устанавливаем тип вопроса по умолчанию
+        questionType: 'singleLine', 
         id: newQuestionId,
-        options: [], // Изначально варианты пустые
-        correctAnswer: '' // Поле для правильного ответа
+        options: [],
+        correctAnswer: '' 
       });
     }
   }
 
+
   removeQuestion(index: number) {
     this.template.questions.splice(index, 1);
   }
+
 
   removeOption(questionIndex: number, optionIndex: number) {
     const question = this.template.questions[questionIndex];
@@ -100,45 +109,45 @@ export class SurveyBuilderComponent {
     }
   }
 
+
   addOption(questionIndex: number) {
     const question = this.template.questions[questionIndex];
     if (!question.options) {
-      question.options = []; // Убедитесь, что options инициализированы
+      question.options = []; 
     }
-
-    // Проверяем, что новое значение не пустое, прежде чем добавлять
     question.options.push({ option: '', id: Date.now() });
   }
+
 
   updateQuestionType(index: number) {
     const question = this.template.questions[index];
     if (question.questionType === 'radio' || question.questionType === 'checkbox') {
-      // Добавляем варианты для вопросов типа radio и checkbox
       question.options = [
         { option: '', id: Date.now() },
         { option: '', id: Date.now() + 1 }
       ];
-      question.correctAnswer = ''; // Сброс правильного ответа
+      question.correctAnswer = ''; 
     }
   }
 
+
   onSubmit() {
-    // Фильтруем опции, чтобы исключить пустые значения
     this.template.questions.forEach(question => {
       if (question.questionType === 'checkbox') {
         question.options = question.options?.filter(option => option.option.trim() !== '') || [];
       }
     });
-
-    // Получаем userId
     const userId = Number(this.authService.getUserInfo("id"));
     if (userId !== null) {
-      this.template.userId = userId; // Присваиваем userId полю userId в шаблоне
+      this.template.userId = userId; 
     }
-
     console.log('Созданный опрос:', this.template);
-    // Отправка данных опроса на сервер
-    this.surveyService.createSurvey(this.template).subscribe(
+    this.sendTemplateOnServer(userId)
+  }
+
+
+  sendTemplateOnServer(userId: number) {
+     this.surveyService.createSurvey(this.template).subscribe(
       response => {
         const userName = this.authService.getUserInfo("username"); 
         console.log('Опрос успешно создан:', response);
@@ -160,5 +169,5 @@ export class SurveyBuilderComponent {
     this.translateService.setLanguage(lang);
   }
 
-  
+
 }

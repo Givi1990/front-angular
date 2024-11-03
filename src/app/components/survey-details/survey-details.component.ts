@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SurveyService } from '../../services/survey.service';
 import { ActivatedRoute } from '@angular/router';
-import { Survey, Question, Response, Option } from '../../interfaces/survey.model';
+import { Survey, Question, Response } from '../../interfaces/survey.model';
 import { AuthService } from '../../services/auth.service';
 import { TranslateService } from '../../dictioanary/translate.pipe';
 
@@ -13,7 +13,7 @@ import { TranslateService } from '../../dictioanary/translate.pipe';
 export class SurveyDetailsComponent implements OnInit {
   survey: Survey | null = null;
   questions: Question[] = [];
-  responses: Response[] = []; // Массив для хранения ответов
+  responses: Response[] = []; 
 
   constructor(
     private surveyService: SurveyService,
@@ -21,17 +21,19 @@ export class SurveyDetailsComponent implements OnInit {
     private authService: AuthService,
     public translateService: TranslateService
   ) {}
+  
 
   ngOnInit(): void {
-    const surveyId = Number(this.route.snapshot.paramMap.get('id')); // Получение ID из маршрута
+    const surveyId = Number(this.route.snapshot.paramMap.get('id')); 
     this.loadSurvey(surveyId);
   }
+
 
   loadSurvey(surveyId: number): void {
     this.surveyService.getSurveyById(surveyId).subscribe(
       survey => {
         this.survey = survey;
-        console.log('Загруженный опрос:', this.survey); // Логируем загруженный опрос
+        console.log('Загруженный опрос:', this.survey); 
         this.getSurveyQuestions(surveyId);
       },
       error => {
@@ -39,12 +41,13 @@ export class SurveyDetailsComponent implements OnInit {
       }
     );
   }
+
   
   getSurveyQuestions(surveyId: number): void {
     this.surveyService.getSurveyQuestions(surveyId).subscribe(
       data => {
         this.questions = data;
-        console.log('Полученные вопросы:', this.questions); // Логируем полученные вопросы
+        console.log('Полученные вопросы:', this.questions); 
         this.questions.forEach(question => {
           if (question.questionType === 'checkbox') {
             question.selectedOption = [];
@@ -62,32 +65,24 @@ export class SurveyDetailsComponent implements OnInit {
 
   onCheckboxChange(question: Question, optionId: number): void {
     if (!Array.isArray(question.selectedOption)) {
-      question.selectedOption = []; // Инициализируем массив для чекбоксов, если он еще не инициализирован
+      question.selectedOption = []; 
     }
-
     const index = question.selectedOption.indexOf(optionId);
     if (index > -1) {
-      // Если вариант уже выбран, удаляем его
       question.selectedOption.splice(index, 1);
     } else {
-      // Если вариант не выбран, добавляем его
       question.selectedOption.push(optionId);
     }
   }
 
+
   submitAnswers(): void {
     const userId = Number(this.authService.getUserInfo("id"));
-    const surveyId = Number(this.route.snapshot.paramMap.get('id')); // Получаем surveyId из маршрута
-
+    const surveyId = Number(this.route.snapshot.paramMap.get('id')); 
     if (userId != null) {
-      // Собираем ответы
       this.collectResponses(userId);
-
-      // Логируем собранные ответы перед отправкой
       console.log('Подготовленные ответы для отправки:', this.responses);
-
-      // Отправляем ответы в сервис, включая surveyId
-      this.surveyService.submitResponses(surveyId, this.responses) // Передаем surveyId
+      this.surveyService.submitResponses(surveyId, this.responses) 
         .subscribe(
           response => {
             console.log('Ответы успешно отправлены:', response);
@@ -102,60 +97,36 @@ export class SurveyDetailsComponent implements OnInit {
   }
 
 
+  collectResponses(userId: number): void {
+    this.responses = this.questions.map(question => {
+      const { id: questionId, surveyId = 0, questionType, options, selectedOption } = question;
+      let answerText: string | null = null;
   
-
-
-// Ваша функция collectResponses
-collectResponses(userId: number): void {
-  this.responses = this.questions.map(question => {
-    // Проверка на наличие options
-    if (!question.options) {
-      return {
-        questionId: question.id,
-        answerText: null, // Если options отсутствуют, возвращаем null
-        userId: userId,
-        surveyId: question.surveyId ?? 0 // Значение по умолчанию, если surveyId не определено
-      };
-    }
-
-    let answerText: string | null = null;
-
-    // Обработка типов вопросов
-    if (question.questionType === 'radio') {
-      const selectedOptionId = question.selectedOption;
-      if (typeof selectedOptionId === 'number') {
-        const selectedOption = question.options.find(opt => opt.id === selectedOptionId);
-        answerText = selectedOption ? selectedOption.option : null; // Получаем текст варианта
+      if (questionType === 'radio' && typeof selectedOption === 'number') {
+        answerText = options?.find(opt => opt.id === selectedOption)?.option || null;
+      } else if (questionType === 'checkbox' && Array.isArray(selectedOption)) {
+        answerText = selectedOption
+          .map(optionId => options?.find(opt => opt.id === optionId)?.option || null)
+          .filter(Boolean)
+          .join(', ');
+      } else if (selectedOption !== null && selectedOption !== undefined) {
+        answerText = selectedOption.toString();
       }
-    } else if (question.questionType === 'checkbox' && Array.isArray(question.selectedOption)) {
-      const selectedTexts = question.selectedOption.map(optionId => {
-        if (typeof optionId === 'number') {
-          const option = question.options?.find(opt => opt.id === optionId); // Используем оператор опциональной последовательности
-          return option ? option.option : null; // Получаем текст варианта
-        }
-        return null; // Если optionId не число, возвращаем null
-      }).filter(text => text !== null); // Фильтруем null значения
-      answerText = selectedTexts.join(', '); // Объединяем тексты выбранных вариантов
-    } else {
-      // Обработка текстовых и числовых ответов
-      answerText = question.selectedOption !== null && question.selectedOption !== undefined 
-        ? question.selectedOption.toString() 
-        : null;
-    }
-
-    return {
-      questionId: question.id,
-      answerText: answerText,
-      userId: userId,
-      surveyId: question.surveyId ?? 0 // Значение по умолчанию, если surveyId не определено
-    };
-  });
-}
+      return {
+        questionId,
+        answerText,
+        userId,
+        surveyId
+      };
+    });
+  }
+  
 
 
 getTranslation(key: string): string {
   return this.translateService.getTranslation(key);
 }
+
 
 switchLanguage(lang: 'en' | 'ru') {
   this.translateService.setLanguage(lang);

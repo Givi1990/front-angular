@@ -47,8 +47,9 @@ const routes: Routes = [
     canActivate: [AuthGuard]  
   },
   { 
-    path: 'search', 
-    loadChildren: () => import('./components/search/search.module').then(m => m.SearchModule) 
+    path: 'create-account-and-contact/:id',  
+    loadChildren: () => import('./components/user-profile/user-profile.module').then(m => m.UserProfileModule),
+    canActivate: [AuthGuard] 
   },
   { path: '**', redirectTo: '/dashboard' }
 ];

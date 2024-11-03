@@ -2,22 +2,22 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
 import { LoginResponse, User } from '../interfaces/survey.model';
-import {baseUrl} from './baseUrl'
+import { baseUrl } from './baseUrl'
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   // Метод для входа в систему
   login(username: string, password: string): Observable<LoginResponse> {
     const userCredentials = { username, password };
     console.log('Username:', username);
     console.log('Password:', password);
-    console.log('Login URL:', `${baseUrl}login`); 
-    
+    console.log('Login URL:', `${baseUrl}login`);
+
     return this.http.post<LoginResponse>(`${baseUrl}/login`, userCredentials)
 
       .pipe(
@@ -65,26 +65,37 @@ export class AuthService {
     );
   }
 
- // Метод для блокировки или разблокировки пользователя
-toggleUserBlock(userId: string, action: 'block' | 'unblock'): Observable<any> {
-  const token = localStorage.getItem('token');
-
-  if (!token) {
-    return throwError(() => new Error('Токен отсутствует'));
+  // Метод для обновления статуса Salesforce
+  updateSalesforceStatus(userId: number): Observable<any> {
+    console.log(`Updating Salesforce status for user ID: ${userId}`);
+    return this.http.patch(`${baseUrl}/${userId}/salesforce`, { salesforce: true }).pipe(
+      catchError(error => {
+        console.error('Ошибка при обновлении статуса Salesforce:', error);
+        return throwError(() => new Error('Не удалось обновить статус Salesforce'));
+      })
+    );
   }
 
-  const headers = new HttpHeaders({
-    Authorization: `Bearer ${token}`,
-  });
+  // Метод для блокировки или разблокировки пользователя
+  toggleUserBlock(userId: string, action: 'block' | 'unblock'): Observable<any> {
+    const token = localStorage.getItem('token');
 
-  // Заменяем метод на PUT и добавляем действие в URL
-  return this.http.put(`${baseUrl}/users/${userId}/${action}`, {}, { headers }).pipe(
-    catchError(error => {
-      console.error(`Ошибка при ${action}ировании пользователя:`, error);
-      return throwError(() => new Error(`Не удалось ${action}ировать пользователя`));
-    })
-  );
-}
+    if (!token) {
+      return throwError(() => new Error('Токен отсутствует'));
+    }
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    // Заменяем метод на PUT и добавляем действие в URL
+    return this.http.put(`${baseUrl}/users/${userId}/${action}`, {}, { headers }).pipe(
+      catchError(error => {
+        console.error(`Ошибка при ${action}ировании пользователя:`, error);
+        return throwError(() => new Error(`Не удалось ${action}ировать пользователя`));
+      })
+    );
+  }
 
 
   // Метод для удаления пользователя
@@ -125,4 +136,11 @@ toggleUserBlock(userId: string, action: 'block' | 'unblock'): Observable<any> {
   logout(): void {
     localStorage.removeItem('token'); // Удаляем токен при выходе
   }
+
+
+
+
+
+
+
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SurveyService } from '../../services/survey.service'; // Импортируйте свой сервис
-import { AuthService } from '../../services/auth.service'; // Импортируйте AuthService
+import { SurveyService } from '../../services/survey.service'; 
+import { AuthService } from '../../services/auth.service'; 
 import { Survey } from '../../interfaces/survey.model';
 import { TranslateService } from '../../dictioanary/translate.pipe';
 
@@ -12,7 +12,7 @@ import { TranslateService } from '../../dictioanary/translate.pipe';
 })
 export class EditSurveyComponent implements OnInit {
   surveyId!: number;
-  template: Survey = this.initializeTemplate(); // Инициализация с значениями по умолчанию
+  template: Survey = this.initializeTemplate(); 
 
   themes: string[] = ['Образование', 'Викторина', 'Другое'];
   tagInput: string = '';
@@ -22,7 +22,6 @@ export class EditSurveyComponent implements OnInit {
     private surveyService: SurveyService,
     private authService: AuthService,
     private route: ActivatedRoute,
-    private router: Router,
     public translateService: TranslateService
   ) { }
 
@@ -39,7 +38,7 @@ export class EditSurveyComponent implements OnInit {
       description: '',
       theme: '',
       tags: [],
-      questions: [], // Начинаем с пустого массива для вопросов
+      questions: [], 
     };
   }
 
@@ -61,9 +60,9 @@ export class EditSurveyComponent implements OnInit {
     this.suggestions = this.getTags().filter(tag => tag.toLowerCase().includes(input));
   }
 
-  // Получение статических тегов
+  // Получение тегов
   getTags(): string[] {
-    return ['Тег1', 'Тег2', 'Тег3']; // Пример статических тегов
+    return ['Тег1', 'Тег2', 'Тег3'];
   }
 
   // Выбор тега

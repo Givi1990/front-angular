@@ -11,8 +11,8 @@ import { TranslateService } from '../../dictioanary/translate.pipe';
   styleUrls: ['./admin-page.component.scss']
 })
 export class AdminPageComponent implements OnInit {
-  users: User[] = []; // Массив для хранения пользователей
-  surveys: any[] = []; // Массив для хранения опросов
+  users: User[] = []; 
+  surveys: any[] = []; 
 
   constructor(
     private authService: AuthService,
@@ -22,8 +22,8 @@ export class AdminPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadUsers(); // Загружаем пользователей
-    this.loadSurveys(); // Загружаем опросы (при необходимости)
+    this.loadUsers(); 
+    this.loadSurveys(); 
   }
 
 
@@ -37,7 +37,9 @@ export class AdminPageComponent implements OnInit {
   loadUsers(): void {
     this.authService.getAllUsers().subscribe(
       (data) => {
-        this.users = data; // Сохраняем пользователей в массив
+        this.users = data; 
+        console.log(this.users);
+        
       },
       (error) => {
         console.error('Ошибка при получении пользователей:', error);
@@ -50,7 +52,7 @@ export class AdminPageComponent implements OnInit {
   loadSurveys(): void {
     this.surveyService.getSurveys().subscribe(
       (data) => {
-        this.surveys = data; // Сохраняем опросы в массив
+        this.surveys = data; 
       },
       (error) => {
         console.error('Ошибка при получении опросов:', error);
@@ -63,7 +65,7 @@ export class AdminPageComponent implements OnInit {
     this.authService.toggleUserBlock(user.id.toString(), action).subscribe(
       response => {
         console.log('Статус пользователя успешно обновлён:', response);
-        user.isBlocked = !user.isBlocked; // Обновляем локальное состояние
+        user.isBlocked = !user.isBlocked; 
       },
       error => {
         console.error('Ошибка при блокировке/разблокировке пользователя:', error);
@@ -77,13 +79,11 @@ deleteUser(userId: number): void {
     this.authService.deleteUser(userId.toString()).subscribe(
       response => {
         console.log('Пользователь успешно удалён:', response);
-        
-        // Проверяем, является ли удаляемый пользователь текущим пользователем
         if (userId === Number(this.authService.getUserInfo("id"))) {
-          this.authService.logout(); // Удаляем токен
-          window.location.reload(); // Перезагружаем страницу
+          this.authService.logout(); 
+          window.location.reload(); 
         } else {
-          this.loadUsers(); // Обновляем список пользователей после удаления
+          this.loadUsers();
         }
       },
       error => {
@@ -100,7 +100,7 @@ deleteUser(userId: number): void {
       this.surveyService.deleteSurvey(surveyId).subscribe(
         () => {
           console.log('Опрос успешно удалён');
-          this.loadSurveys(); // Обновляем список опросов после удаления
+          this.loadSurveys(); 
         },
         (error) => {
           console.error('Ошибка при удалении опроса:', error);
@@ -117,5 +117,5 @@ deleteUser(userId: number): void {
     this.translateService.setLanguage(lang);
   }
 
-  
+
 }
