@@ -99,7 +99,8 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/static"
+              "src/static",
+              "src/atlassian-domain-verification-0d13f434-3e4b-4f63-9dce-ba6cbca8b5d7.html"
             ],
             "styles": [
               "src/styles.scss"
