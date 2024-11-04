@@ -15,7 +15,7 @@ export class UserProfileComponent implements OnInit {
   email: string = '';
   successMessage: string | null = null;
   errorMessage: string | null = null;
-  isSalesforceRegistered: boolean = false;
+  isSalesforceRegistered!: boolean;
 
   constructor(
     private salesforceService: SalesforceService,
