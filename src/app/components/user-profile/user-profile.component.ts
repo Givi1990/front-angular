@@ -27,7 +27,7 @@ export class UserProfileComponent implements OnInit {
     setTimeout(() => {
       this.isLoading = false;
       this.checkSalesforceRegistration();
-    }, 1000); 
+    }, 2000); 
   }
 
   private checkSalesforceRegistration(): void {
