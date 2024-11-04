@@ -16,6 +16,7 @@ export class UserProfileComponent implements OnInit {
   successMessage: string | null = null;
   errorMessage: string | null = null;
   isSalesforceRegistered!: boolean;
+  isLoading: boolean = true; 
 
   constructor(
     private salesforceService: SalesforceService,
@@ -23,7 +24,10 @@ export class UserProfileComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.checkSalesforceRegistration();
+    setTimeout(() => {
+      this.isLoading = false;
+      this.checkSalesforceRegistration();
+    }, 1000); 
   }
 
   private checkSalesforceRegistration(): void {
