@@ -26,7 +26,6 @@ export class UserProfileComponent implements OnInit {
   ngOnInit(): void {
     setTimeout(() => {
       this.isLoading = false;
-      this.checkSalesforceRegistration();
     }, 2000); 
   }
 
